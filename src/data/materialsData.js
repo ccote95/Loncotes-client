@@ -16,3 +16,15 @@ export const createMaterial = (material) => {
     body: JSON.stringify(material),
   }).then((res) => res.json());
 };
+
+export const removeFromCirculation = (id) => {
+  const removeOptions = {
+    method: "DELETE"
+   
+  }
+  return fetch(`${_apiUrl}/${id}`, removeOptions)
+}
+
+export const getAvailableMaterial = () => {
+  return fetch(`${_apiUrl}/available`).then((r) => r.json())
+}

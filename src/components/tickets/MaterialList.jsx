@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Table } from "reactstrap";
-import { getMaterials } from "../../data/materialsData";
+import { Button, Table } from "reactstrap";
+import { getMaterials, removeFromCirculation } from "../../data/materialsData";
 import { Link } from "react-router-dom";
 
 export default function MaterialList() {
@@ -10,6 +10,9 @@ export default function MaterialList() {
     getMaterials().then(setMaterials);
   }, []);
 
+  const handleRemoveClick = (id) => {
+    removeFromCirculation(id).then(() =>{getMaterials().then(setMaterials)})
+  }
   return (
     <div className="container">
       <div className="sub-menu bg-light">
@@ -35,6 +38,9 @@ export default function MaterialList() {
               <td>{m.genre.name}</td>
               <td>
                 <Link to={`${m.id}`}>Details</Link>
+              </td>
+              <td>
+                <Button color="success" onClick={() => {handleRemoveClick(m.id)}}>Remove</Button>
               </td>
             </tr>
           ))}
